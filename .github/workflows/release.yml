@@ -46,12 +46,11 @@ jobs:
         run: |
           mkdir -p src-tauri/binaries
           if [[ "${{ matrix.platform }}" == "macos-latest" ]]; then
-            # Download universal binary for macOS
+            # Download x86_64 and aarch64 binaries for macOS
             curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o src-tauri/binaries/yt-dlp-x86_64-apple-darwin
+            curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o src-tauri/binaries/yt-dlp-aarch64-apple-darwin
             chmod +x src-tauri/binaries/yt-dlp-x86_64-apple-darwin
-            
-            # Use same binary for aarch64 (M1/M2)
-            cp src-tauri/binaries/yt-dlp-x86_64-apple-darwin src-tauri/binaries/yt-dlp-aarch64-apple-darwin
+            chmod +x src-tauri/binaries/yt-dlp-aarch64-apple-darwin
           elif [[ "${{ matrix.platform }}" == "windows-latest" ]]; then
             curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -o src-tauri/binaries/yt-dlp-x86_64-pc-windows-msvc.exe
           fi
