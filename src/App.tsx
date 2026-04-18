@@ -25,6 +25,7 @@ function App() {
     mood, setMood,
     commentCount, setCommentCount,
     targetLanguage, setTargetLanguage,
+    feedback, setFeedback,
     captions, setCaptions,
     captionsSource, setCaptionsSource,
     comments, setComments,
