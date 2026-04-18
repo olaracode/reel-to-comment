@@ -1,0 +1,52 @@
+{
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "ReelComment",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "sidecar": true,
+        "scope": [
+          { "name": "yt-dlp", "sidecar": true, "args": true }
+        ]
+      },
+      "http": {
+        "all": true,
+        "scope": ["https://api.groq.com/**", "https://api.telegram.org/**"]
+      }
+    },
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.reelcomment.app",
+      "icon": [
+        "icons/icon.png"
+      ],
+      "externalBin": ["yt-dlp"]
+    },
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 720,
+        "resizable": true,
+        "title": "ReelComment",
+        "width": 720,
+        "minWidth": 560,
+        "minHeight": 500
+      }
+    ]
+  }
+}

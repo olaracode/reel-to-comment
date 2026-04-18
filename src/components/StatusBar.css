@@ -1,0 +1,38 @@
+.status-bar {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  background-color: var(--surface2);
+  border: 1px solid var(--border);
+  margin-top: 16px;
+}
+
+.status-bar.error {
+  background-color: rgba(255, 92, 92, 0.1);
+  border-color: var(--red);
+}
+
+.status-bar .error-text {
+  color: var(--red);
+  flex: 1;
+}
+
+.status-bar .close-btn {
+  background: none;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.status-bar .close-btn:hover {
+  color: var(--red);
+}
+
+.status-bar .success-text {
+  color: var(--green);
+}

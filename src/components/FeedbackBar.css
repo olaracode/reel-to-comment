@@ -1,0 +1,49 @@
+.feedback-bar {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: var(--surface2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+.feedback-bar textarea {
+  width: 100%;
+  min-height: 80px;
+  background-color: var(--surface);
+  margin-bottom: 16px;
+  resize: vertical;
+  font-size: 14px;
+}
+
+.feedback-bar .actions {
+  display: flex;
+  gap: 12px;
+}
+
+.feedback-bar .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: var(--radius);
+  transition: opacity 0.2s ease;
+}
+
+.feedback-bar .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback-bar .btn-secondary {
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid var(--border-bright);
+  color: var(--text);
+}
+
+.feedback-bar .btn-primary {
+  flex: 1.5;
+  background-color: var(--accent);
+  color: var(--bg);
+}

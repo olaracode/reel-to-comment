@@ -1,0 +1,39 @@
+.comment-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 16px;
+  alignItems: flex-start;
+  animation: slideUp 0.4s ease forwards;
+  opacity: 0;
+}
+
+.comment-card .index {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 500;
+  margin-top: 2px;
+  width: 20px;
+}
+
+.comment-card .content {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.comment-card .copy-button {
+  background: none;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+}
+
+.comment-card .copy-button.copied {
+  color: var(--green);
+}
