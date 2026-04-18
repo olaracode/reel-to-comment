@@ -40,20 +40,18 @@ jobs:
 
       - name: install frontend dependencies
         run: npm install
-
-      - name: download yt-dlp sidecar
-        shell: bash
-        run: |
-          mkdir -p src-tauri/binaries
-          if [[ "${{ matrix.platform }}" == "macos-latest" ]]; then
-            # Download x86_64 and aarch64 binaries for macOS
-            curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o src-tauri/binaries/yt-dlp-x86_64-apple-darwin
-            curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o src-tauri/binaries/yt-dlp-aarch64-apple-darwin
-            chmod +x src-tauri/binaries/yt-dlp-x86_64-apple-darwin
-            chmod +x src-tauri/binaries/yt-dlp-aarch64-apple-darwin
-          elif [[ "${{ matrix.platform }}" == "windows-latest" ]]; then
-            curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -o src-tauri/binaries/yt-dlp-x86_64-pc-windows-msvc.exe
-          fi
+- name: download yt-dlp sidecar
+  shell: bash
+  run: |
+    if [[ "${{ matrix.platform }}" == "macos-latest" ]]; then
+      # Download x86_64 and aarch64 binaries for macOS
+      curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o src-tauri/yt-dlp-x86_64-apple-darwin
+      curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o src-tauri/yt-dlp-aarch64-apple-darwin
+      chmod +x src-tauri/yt-dlp-x86_64-apple-darwin
+      chmod +x src-tauri/yt-dlp-aarch64-apple-darwin
+    elif [[ "${{ matrix.platform }}" == "windows-latest" ]]; then
+      curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -o src-tauri/yt-dlp-x86_64-pc-windows-msvc.exe
+    fi
 
       - name: build tauri app
         uses: tauri-apps/tauri-action@v0
