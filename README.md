@@ -36,5 +36,9 @@ npm run tauri build
 2. Click the gear icon (Settings).
 3. Enter your **Groq API Key**.
 4. Enter your **Telegram Bot Token** and **Channel ID**.
-5. Save settings (they are encrypted and stored in your OS keychain).
-6. Paste a Reel URL and start generating!
+## Roadmap / TODO
+
+- [ ] Set up **GitHub Actions** to automatically build and package downloadable versions (`.dmg`, `.msi`) on new tag releases.
+- [ ] Add support for batch Reels processing.
+- [ ] Implement "Copy to Clipboard" button for individual comments.
+- [ ] Add dark/light mode toggle.

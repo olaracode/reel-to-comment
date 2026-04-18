@@ -1,0 +1,68 @@
+name: "Publish Release"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: install rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev patchelf libsecret-1-dev
+
+      - name: install frontend dependencies
+        run: npm install
+
+      - name: download yt-dlp sidecar
+        shell: bash
+        run: |
+          mkdir -p src-tauri/binaries
+          if [[ "${{ matrix.platform }}" == "macos-latest" ]]; then
+            # Download universal binary for macOS
+            curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o src-tauri/binaries/yt-dlp-x86_64-apple-darwin
+            chmod +x src-tauri/binaries/yt-dlp-x86_64-apple-darwin
+            
+            # Use same binary for aarch64 (M1/M2)
+            cp src-tauri/binaries/yt-dlp-x86_64-apple-darwin src-tauri/binaries/yt-dlp-aarch64-apple-darwin
+          elif [[ "${{ matrix.platform }}" == "windows-latest" ]]; then
+            curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe -o src-tauri/binaries/yt-dlp-x86_64-pc-windows-msvc.exe
+          fi
+
+      - name: build tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__ # tauri-action replaces this with the app version from tauri.conf.json
+          releaseName: "ReelComment v__VERSION__"
+          releaseBody: "Automated build from GitHub Actions"
+          releaseDraft: true
+          prerelease: false
