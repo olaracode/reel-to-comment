@@ -32,9 +32,8 @@
       "icon": [
         "icons/icon.png"
       ],
-      "externalBin": ["yt-dlp"]
-      },
-    "security": {
+      "externalBin": ["binaries/yt-dlp"]
+      },    "security": {
       "csp": null
     },
     "windows": [
